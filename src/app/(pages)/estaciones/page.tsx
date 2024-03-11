@@ -6,6 +6,7 @@ import React from "react";
 import GraficaPrecipitacion, {
   sumarPrecipitaciones,
 } from "@/app/components/graficabarras";
+import ComponenteConFecha from "@/app/components/fecha";
 
 const ComponenteConGrafica: React.FC = () => {
   const { users } = useUsers();
@@ -13,6 +14,7 @@ const ComponenteConGrafica: React.FC = () => {
 
   return (
     <div>
+      <ComponenteConFecha />
       <GraficaPrecipitacion datos={datosTransformados} />
     </div>
   );

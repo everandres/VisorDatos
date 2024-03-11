@@ -72,9 +72,9 @@ const GraficaPrecipitacion: React.FC<GraficaPrecipitacionProps> = ({
       },
       title: {
         display: true,
-        text: "Precipitación Total Acumulada Diaria (mm)",
+        text: "Precipitación Total Acumulada Diaria",
         font: {
-          size: 32,
+          size: 24,
         },
       },
     },
