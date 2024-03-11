@@ -1,10 +1,11 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import markerIconPng from "leaflet/dist/images/marker-icon.png";
+// Asegúrate de tener la importación correcta
 // Asegúrate de importar la interfaz User desde su ubicación
 import { User } from "../(model)/conexion";
+import MarkerClusterGroup from "react-leaflet-cluster"; // Asegúrate de tener la importación correcta
 
 interface EstacionesMapaProps {
   users: User[];
@@ -12,38 +13,62 @@ interface EstacionesMapaProps {
 
 const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
   const defaultPosition: [number, number] = [4.60971, -74.08175]; // Ejemplo: Bogotá, Colombia. Ajusta según tus necesidades.
+  // Función ajustada para retornar tanto la clave como el valor
+  const obtenerUltimoValorPrecipitacion = (
+    precipitaciones: { [key: string]: number }[]
+  ): { dia: string; valor: number | null } | null => {
+    if (precipitaciones.length === 0) return null;
+    const ultimaPrecipitacion = precipitaciones[precipitaciones.length - 1];
+    const dia = Object.keys(ultimaPrecipitacion)[0];
+    // Asegura que valores como 0 o null se manejen explícitamente
+    const valor =
+      ultimaPrecipitacion[dia] !== undefined ? ultimaPrecipitacion[dia] : null;
+    return { dia, valor };
+  };
 
   return (
     <MapContainer
       center={defaultPosition}
-      zoom={5}
+      zoom={8}
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {users.map((user, index) => (
-        <Marker
-          key={index}
-          position={[user.LAT, user.LON]}
-          icon={L.icon({
-            iconUrl: markerIconPng.toString(),
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-          })}
-        >
-          <Popup>
-            Estación: {user.ESTACION}
-            <br />
-            Departamento: {user.DPTO}
-            <br />
-            Municipio: {user.MUNICIPIO}
-            <br />
-            Max Hist: {user.MAX_HIST ?? "N/A"} mm
-          </Popup>
-        </Marker>
-      ))}
+      <MarkerClusterGroup>
+        {users.map((user, index) => (
+          <CircleMarker
+            key={index}
+            center={[user.LAT, user.LON]}
+            radius={10} // Puedes ajustar el tamaño del círculo aquí
+            fillOpacity={0.5}
+            fillColor="#1779ba"
+            color="#1779ba"
+          >
+            <Tooltip direction="top" offset={[0, -10]} opacity={1}>
+              Estación: {user.ESTACION}
+              <br />
+              Departamento: {user.DPTO}
+              <br />
+              Municipio: {user.MUNICIPIO}
+              <br />
+              Elevación: {user.ELEV ?? "N/A"} m
+              <br />
+              Max Hist: {user.MAX_HIST ?? "N/A"} mm
+              <br />
+              Última Precipitación:{" "}
+              {obtenerUltimoValorPrecipitacion(user.precipitacion)?.valor ??
+                "N/A"}{" "}
+              mm
+              <br />
+              Dia del mes:{" "}
+              {obtenerUltimoValorPrecipitacion(user.precipitacion)?.dia ??
+                "N/A"}
+            </Tooltip>
+          </CircleMarker>
+        ))}
+      </MarkerClusterGroup>
     </MapContainer>
   );
 };

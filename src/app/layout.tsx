@@ -19,11 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>
-          <h5 className="text-center text-1xl font-bold bg-cyan-600 text-white">
+        <div className="flex justify-center bg-cyan-600">
+          <Link href="/" className="text-center text-1xl font-bold text-white">
             Reporte diario de estaciones - Oficina del Servicio de Pronósticos y
             Alertas
-          </h5>
+          </Link>
         </div>
         <UserProvider>{children}</UserProvider>
       </body>
