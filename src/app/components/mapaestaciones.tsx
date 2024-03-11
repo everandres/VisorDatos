@@ -25,7 +25,6 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
       ultimaPrecipitacion[dia] !== undefined ? ultimaPrecipitacion[dia] : null;
     return { dia, valor };
   };
-
   return (
     <MapContainer
       center={defaultPosition}
@@ -53,18 +52,18 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
               <br />
               Municipio: {user.MUNICIPIO}
               <br />
-              Elevación: {user.ELEV ?? "N/A"} m
+              Elevación: {user.ELEV ?? "Sin información"} (m)
               <br />
-              Max Hist: {user.MAX_HIST ?? "N/A"} mm
+              Max Hist: {user.MAX_HIST ?? "Sin información"} (mm)
               <br />
               Última Precipitación:{" "}
               {obtenerUltimoValorPrecipitacion(user.precipitacion)?.valor ??
-                "N/A"}{" "}
+                "Sin información"}{" "}
               mm
               <br />
               Dia del mes:{" "}
               {obtenerUltimoValorPrecipitacion(user.precipitacion)?.dia ??
-                "N/A"}
+                "Sin información"}
             </Tooltip>
           </CircleMarker>
         ))}
