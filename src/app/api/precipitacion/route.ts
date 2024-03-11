@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
     });
   } catch (e) {
     return new NextResponse(
-      JSON.stringify({ message: "Error al conectar a la base de datos" }),
+      JSON.stringify({ message: "Error al conectar a la base de datos ${e}" }),
       {
         status: 500,
         headers: {

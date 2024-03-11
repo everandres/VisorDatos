@@ -21,7 +21,7 @@ const ComponenteConFecha: React.FC = () => {
 
   return (
     <div>
-      <p className="text-2xl text-gray-400 mt-8 items-center flex justify-center">
+      <p className=" text-gray-400 mt-8 items-center flex justify-center">
         Fecha actual: {fechaHora}
       </p>
       {/* ... resto de tu componente */}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "./context/usercontext";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <h5 className="w-full text-center text-3xl font-bold bg-cyan-600 text-white">
-          Reporte diario de estaciones - Oficina del Servicio de Pronósticos y
-          Alertas
-        </h5>
+        <div>
+          <h5 className="w-full text-center text-1xl font-bold bg-cyan-600 text-white">
+            Reporte diario de estaciones - Oficina del Servicio de Pronósticos y
+            Alertas
+          </h5>
+        </div>
         <UserProvider>{children}</UserProvider>
       </body>
     </html>

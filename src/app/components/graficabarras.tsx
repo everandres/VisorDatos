@@ -1,6 +1,7 @@
 import { User } from "../(model)/conexion";
 import React from "react";
 import { Bar } from "react-chartjs-2";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,24 +25,36 @@ import { ChartOptions } from "chart.js";
 interface SumaPorDia {
   dia: string;
   suma: number;
+  estaciones: number;
 }
 
 export function sumarPrecipitaciones(users: User[]): SumaPorDia[] {
-  const sumasPorDia: { [dia: string]: number } = {};
+  const resultadosPorDia: {
+    [dia: string]: { suma: number; estaciones: number };
+  } = {};
 
   users.forEach((user) => {
     user.precipitacion.forEach((precipitacion) => {
       const [dia, valor] = Object.entries(precipitacion)[0];
-      sumasPorDia[dia] = (sumasPorDia[dia] || 0) + valor;
+      if (valor !== null) {
+        // Asegura que solo cuente estaciones con datos no nulos
+        if (!resultadosPorDia[dia]) {
+          resultadosPorDia[dia] = { suma: 0, estaciones: 0 };
+        }
+        resultadosPorDia[dia].suma += valor;
+        resultadosPorDia[dia].estaciones += 1; // Contador de estaciones
+      }
     });
   });
 
-  return Object.entries(sumasPorDia).map(([dia, suma]) => ({
-    dia,
-    suma,
-  }));
+  return Object.entries(resultadosPorDia).map(
+    ([dia, { suma, estaciones }]) => ({
+      dia,
+      suma,
+      estaciones, // Incluye el conteo en el resultado
+    })
+  );
 }
-
 interface GraficaPrecipitacionProps {
   datos: SumaPorDia[];
 }
@@ -116,15 +129,23 @@ const GraficaPrecipitacion: React.FC<GraficaPrecipitacionProps> = ({
         data: datos.map((d) => d.suma),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
         hoverOffset: 4,
+        hoverBackgroundColor: "#3678A4",
+      },
+      {
+        label: "Número de estaciones que reportaron datos",
+        data: datos.map((d) => d.estaciones),
+        backgroundColor: "#6AE1AE", // Un color diferente para diferenciar
+        hoverOffset: 4,
+        hoverBackgroundColor: "#70F570",
       },
     ],
   };
 
+  // Resto del componente sin cambios...
   return (
     <div className="w-[90%] h-[40vh] mt-10 mx-auto flex justify-bottom items-center">
       <Bar options={opciones} data={data} />
     </div>
   );
 };
-
 export default GraficaPrecipitacion;
