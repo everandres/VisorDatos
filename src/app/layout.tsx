@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div>
-          <h5 className="w-full text-center text-1xl font-bold bg-cyan-600 text-white">
+          <h5 className="text-center text-1xl font-bold bg-cyan-600 text-white">
             Reporte diario de estaciones - Oficina del Servicio de Pronósticos y
             Alertas
           </h5>
