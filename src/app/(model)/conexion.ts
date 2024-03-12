@@ -29,9 +29,12 @@ export interface User {
   AREA_HIDROGRAFICA: string;
   ZONA_HIDROGRAFICA: string;
   SUBZONA_HIDROGRAFICA: string;
-  PREC_TOTAL: number;
+  PRECTOTAL: number;
   PROM_MULT: number;
   MAX_MES: number;
   MAX_HIST: number;
   precipitacion: Array<{ [key: string]: number }>;
+  T_MIN_MES: number;
+  T_MIN_HIST: number;
+  t_min: Array<{ [key: string]: number }>;
 }

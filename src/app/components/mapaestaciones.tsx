@@ -16,7 +16,6 @@ interface EstacionesMapaProps {
 interface Precipitacion {
   [key: string]: number;
 }
-
 // Ajustando la interfaz de User para reflejar la propiedad de precipitaciones correctamente
 interface UserAdjusted extends Omit<User, "precipitacion"> {
   precipitacion: Precipitacion[];
@@ -51,6 +50,10 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
           const ultimaPrecipitacion = obtenerUltimoValorPrecipitacion(
             user.precipitacion
           );
+          const ultimaTemperaturaMinima = obtenerUltimoValorPrecipitacion(
+            user.t_min
+          );
+
           let fillColor = "#1779ba"; // Azul por defecto para valores de 0 a 25
 
           if (ultimaPrecipitacion === null) {
@@ -113,8 +116,19 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 <strong>ULTIMA PRECIPITACION: </strong>
                 {ultimaPrecipitacion?.valor ?? "Sin información"} mm
                 <br />
+                <strong>PRECIPITACION TOTAL ACUMULADA: </strong>
+                {user.PRECTOTAL ?? "Sin información"} mm
+                <br />
                 <strong>DIA DEL MES:</strong>{" "}
                 {ultimaPrecipitacion?.dia ?? "Sin información"}
+                <br /> <strong> TEMPERATURA MINIMA DEL MES:</strong>{" "}
+                {user.T_MIN_MES ?? "Sin información"} °C
+                <br />
+                <strong>ULTIMA TEMPERATURA MINIMA: </strong>
+                {ultimaTemperaturaMinima?.valor ?? "Sin información"} °C
+                <br />
+                <strong>DIA TEMPERATURA MINIMA: </strong>
+                {ultimaTemperaturaMinima?.dia ?? "Sin información"}
               </Tooltip>
             </CircleMarker>
           );

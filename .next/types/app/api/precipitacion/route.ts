@@ -1,4 +1,4 @@
-// File: C:\Users\Ever Salazar\Desktop\VisorDatos\src\app\api\precipitacion\route.ts
+// File: C:\Users\easalazarm\Desktop\VisorDatos\src\app\api\precipitacion\route.ts
 import * as entry from '../../../../../src/app/api/precipitacion/route.js'
 import type { NextRequest } from 'next/server.js'
 
