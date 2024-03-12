@@ -37,4 +37,7 @@ export interface User {
   T_MIN_MES: number;
   T_MIN_HIST: number;
   t_min: Array<{ [key: string]: number }>;
+  T_MAX_MES: number;
+  T_MAX_HIST: number;
+  t_max: Array<{ [key: string]: number }>;
 }

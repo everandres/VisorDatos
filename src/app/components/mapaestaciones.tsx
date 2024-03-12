@@ -53,6 +53,9 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
           const ultimaTemperaturaMinima = obtenerUltimoValorPrecipitacion(
             user.t_min
           );
+          const ultimaTemperaturaMaxima = obtenerUltimoValorPrecipitacion(
+            user.t_max
+          );
 
           let fillColor = "#1779ba"; // Azul por defecto para valores de 0 a 25
 
@@ -110,8 +113,8 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 <br />
                 <strong>ELEVACION: </strong>
                 {user.ELEV ?? "Sin información"} m<br />
-                <strong> MAX HIST:</strong>
-                {user.MAX_HIST ?? "Sin información"} mm
+                <strong> MAX HIST:</strong> {user.MAX_HIST ?? "Sin información"}{" "}
+                mm
                 <br />
                 <strong>ULTIMA PRECIPITACION: </strong>
                 {ultimaPrecipitacion?.valor ?? "Sin información"} mm
@@ -129,6 +132,15 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 <br />
                 <strong>DIA TEMPERATURA MINIMA: </strong>
                 {ultimaTemperaturaMinima?.dia ?? "Sin información"}
+                <br />
+                <strong> TEMPERATURA MAXIMA DEL MES:</strong>{" "}
+                {user.T_MAX_MES ?? "Sin información"} °C
+                <br />
+                <strong>ULTIMA TEMPERATURA MAXIMA: </strong>
+                {ultimaTemperaturaMaxima?.valor ?? "Sin información"} °C
+                <br />
+                <strong>DIA TEMPERATURA MAXIMA: </strong>
+                {ultimaTemperaturaMaxima?.dia ?? "Sin información"}
               </Tooltip>
             </CircleMarker>
           );
