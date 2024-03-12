@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* En tu archivo CSS, por ejemplo, styles.css */
+.tooltipCustom {
+  background-color: rgba(97, 97, 97, 0.9);
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: 1px solid #777;
+}
