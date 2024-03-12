@@ -130,17 +130,11 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 <strong>ULTIMA TEMPERATURA MINIMA: </strong>
                 {ultimaTemperaturaMinima?.valor ?? "Sin información"} °C
                 <br />
-                <strong>DIA TEMPERATURA MINIMA: </strong>
-                {ultimaTemperaturaMinima?.dia ?? "Sin información"}
-                <br />
                 <strong> TEMPERATURA MAXIMA DEL MES:</strong>{" "}
                 {user.T_MAX_MES ?? "Sin información"} °C
                 <br />
                 <strong>ULTIMA TEMPERATURA MAXIMA: </strong>
                 {ultimaTemperaturaMaxima?.valor ?? "Sin información"} °C
-                <br />
-                <strong>DIA TEMPERATURA MAXIMA: </strong>
-                {ultimaTemperaturaMaxima?.dia ?? "Sin información"}
               </Tooltip>
             </CircleMarker>
           );
