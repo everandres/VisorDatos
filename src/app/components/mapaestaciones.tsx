@@ -97,6 +97,16 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
               fillOpacity={0.5}
               fillColor={fillColor}
               color={fillColor}
+              eventHandlers={{
+                mouseover: (e) => {
+                  const marker = e.target;
+                  marker.setRadius(20); // Aumenta el radio del marcador
+                },
+                mouseout: (e) => {
+                  const marker = e.target;
+                  marker.setRadius(10); // Restablece el tamaño original del marcador
+                },
+              }}
             >
               <Tooltip
                 className="tooltipCustom"
@@ -113,8 +123,8 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 <br />
                 <strong>ELEVACION: </strong>
                 {user.ELEV ?? "Sin información"} m<br />
-                <strong> MAX HIST:</strong> {user.MAX_HIST ?? "Sin información"}{" "}
-                mm
+                <strong>PRECIPITACIÓN MÁXIMA HISTÓRICA:</strong>{" "}
+                {user.MAX_HIST ?? "Sin información"} mm
                 <br />
                 <strong>ULTIMA PRECIPITACION: </strong>
                 {ultimaPrecipitacion?.valor ?? "Sin información"} mm
