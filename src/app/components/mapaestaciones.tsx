@@ -76,7 +76,7 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <SearchControl />
-      <MarkerClusterGroup>
+      <MarkerClusterGroup maxClusterRadius={25}>
         {users.map((user: UserAdjusted, index: number) => {
           const ultimaPrecipitacion = obtenerUltimoValorPrecipitacion(
             user.precipitacion
@@ -104,11 +104,13 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 user.MAX_HIST === null || valor > user.MAX_HIST;
 
               if (valor > 40 && !superaMaxHist) {
-                fillColor = "#ff0000"; // Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
+                fillColor = "blue"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
               } else if (valor > 20 && valor <= 40) {
-                fillColor = "#59B6F3"; // Verde si es de 25 a 50
+                fillColor = "#146AA2"; // Verde si es de 25 a 50
               } else if (valor <= 20 && valor > 0) {
-                fillColor = "#F3FF40"; // Azul por defecto para valores de 0 a 25
+                fillColor = "#59B6F3"; // Azul por defecto para valores de 0 a 25
+              } else {
+                fillColor = "#F55B5B"; // Gris si el valor es 0
               }
 
               // Aplica color morado si el valor supera MAX_HIST y MAX_HIST no es nulo
@@ -124,8 +126,8 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
             <CircleMarker
               key={index}
               center={[user.LAT, user.LON]}
-              radius={10}
-              fillOpacity={0.7}
+              radius={6}
+              fillOpacity={0.9}
               fillColor={fillColor}
               color={fillColor}
               eventHandlers={{

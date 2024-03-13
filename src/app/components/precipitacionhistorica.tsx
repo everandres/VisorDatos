@@ -45,7 +45,8 @@ const EstacionesSuperanMaxPrec: React.FC<EstacionesSuperanMaxProps> = ({
     <div>
       <table className=" text-sm text-left text-gray-500 dark:text-gray-400 mt-20 mr-3">
         <caption className="caption-top mt-2 text-slate-500 mb-4 ">
-          Valores de precipitación que superaron el máximo histórico
+          Valores de precipitación que superaron el máximo histórico el día de
+          hoy
         </caption>
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
