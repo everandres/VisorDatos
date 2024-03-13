@@ -1,5 +1,11 @@
-import React from "react";
-import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
+import React, { useEffect } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  CircleMarker,
+  Tooltip,
+  useMap,
+} from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "../css/styles.css";
@@ -21,14 +27,51 @@ interface UserAdjusted extends Omit<User, "precipitacion"> {
   precipitacion: Precipitacion[];
 }
 
+// Componente para añadir el control de búsqueda al mapa
+const SearchControl: React.FC = () => {
+  const map = useMap();
+
+  useEffect(() => {
+    // Importación dinámica de GeoSearchControl y OpenStreetMapProvider
+    const {
+      GeoSearchControl,
+      OpenStreetMapProvider,
+    } = require("leaflet-geosearch");
+
+    const provider = new OpenStreetMapProvider();
+    const searchControl = new GeoSearchControl({
+      provider,
+      searchLabel: "Buscar estación",
+      style: "button",
+      animateZoom: true,
+      autoComplete: true,
+      autoCompleteDelay: 100,
+      showMarker: false,
+      autoClose: true,
+    });
+
+    map.addControl(searchControl);
+
+    // Limpieza al desmontar
+    return () => {
+      map.removeControl(searchControl);
+    };
+  }, [map]);
+
+  return null;
+};
+
 const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
   const defaultPosition: [number, number] = [4.60971, -74.08175]; // Ejemplo: Bogotá, Colombia. Ajusta según tus necesidades.
 
   const obtenerUltimoValorPrecipitacion = (
-    precipitaciones: Precipitacion[]
+    precipitaciones: Precipitacion[] | null
   ): { dia: string; valor: number | null } | null => {
-    if (precipitaciones.length === 0) return null;
-    const ultimaPrecipitacion = precipitaciones[precipitaciones.length - 1];
+    // Proporciona un arreglo vacío como valor predeterminado si precipitaciones es null/undefined
+    const precipitacionesSeguras = precipitaciones || [];
+    if (precipitacionesSeguras.length === 0) return null;
+    const ultimaPrecipitacion =
+      precipitacionesSeguras[precipitacionesSeguras.length - 1];
     const dia = Object.keys(ultimaPrecipitacion)[0];
     const valor =
       ultimaPrecipitacion[dia] !== undefined ? ultimaPrecipitacion[dia] : null;
@@ -45,6 +88,7 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      <SearchControl />
       <MarkerClusterGroup>
         {users.map((user: UserAdjusted, index: number) => {
           const ultimaPrecipitacion = obtenerUltimoValorPrecipitacion(
@@ -114,36 +158,45 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 offset={[0, -10]}
                 opacity={1}
               >
-                <strong>ESTACIÓN: </strong>
+                <strong className="text-gray-300">CÓDIGO: </strong>
+                {user.CODIGO}
+                <br />
+                <strong className="text-gray-300">ESTACIÓN: </strong>
                 {user.ESTACION}
                 <br />
-                <strong>DEPARTAMENTO:</strong> {user.DPTO}
+                <strong className="text-gray-300">DEPARTAMENTO:</strong>{" "}
+                {user.DPTO}
                 <br />
-                <strong>MUNICIPIO:</strong> {user.MUNICIPIO}
+                <strong className="text-gray-300">MUNICIPIO:</strong>{" "}
+                {user.MUNICIPIO}
                 <br />
-                <strong>ELEVACION: </strong>
+                <strong className="text-gray-300">ELEVACION: </strong>
                 {user.ELEV ?? "Sin información"} m<br />
-                <strong>PRECIPITACIÓN MÁXIMA HISTÓRICA:</strong>{" "}
+                <strong className="text-orange-200">
+                  PRECIPITACIÓN MÁXIMA HISTÓRICA:
+                </strong>{" "}
                 {user.MAX_HIST ?? "Sin información"} mm
                 <br />
-                <strong>ULTIMA PRECIPITACION: </strong>
-                {ultimaPrecipitacion?.valor ?? "Sin información"} mm
+                <strong className="text-orange-200">
+                  TEMPERATURA MÍNIMA HISTÓRICA:
+                </strong>{" "}
+                {user.T_MIN_HIST ?? "Sin información"} °C
                 <br />
-                <strong>PRECIPITACION TOTAL ACUMULADA: </strong>
-                {user.PRECTOTAL ?? "Sin información"} mm
+                <strong className="text-orange-200">
+                  TEMPERATURA MAXIMA HISTÓRICA:
+                </strong>{" "}
+                {user.T_MAX_HIST ?? "Sin información"} °C
                 <br />
                 <strong>DIA DEL MES:</strong>{" "}
                 {ultimaPrecipitacion?.dia ?? "Sin información"}
-                <br /> <strong> TEMPERATURA MINIMA DEL MES:</strong>{" "}
-                {user.T_MIN_MES ?? "Sin información"} °C
                 <br />
-                <strong>ULTIMA TEMPERATURA MINIMA: </strong>
+                <strong className="text-green-200">PRECIPITACIÓN: </strong>
+                {ultimaPrecipitacion?.valor ?? "Sin información"} mm
+                <br />
+                <strong className="text-green-200">TEMPERATURA MÍNIMA: </strong>
                 {ultimaTemperaturaMinima?.valor ?? "Sin información"} °C
                 <br />
-                <strong> TEMPERATURA MAXIMA DEL MES:</strong>{" "}
-                {user.T_MAX_MES ?? "Sin información"} °C
-                <br />
-                <strong>ULTIMA TEMPERATURA MAXIMA: </strong>
+                <strong className="text-green-200">TEMPERATURA MÁXIMA: </strong>
                 {ultimaTemperaturaMaxima?.valor ?? "Sin información"} °C
               </Tooltip>
             </CircleMarker>
