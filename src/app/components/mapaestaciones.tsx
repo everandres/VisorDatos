@@ -13,6 +13,7 @@ import "../css/styles.css";
 // Asegúrate de importar la interfaz User desde su ubicación
 import { User } from "../(model)/conexion";
 import MarkerClusterGroup from "react-leaflet-cluster"; // Asegúrate de tener la importación correcta
+import obtenerUltimoValorPrecipitacion from "../funciones/ultimodia";
 
 interface EstacionesMapaProps {
   users: User[];
@@ -64,20 +65,6 @@ const SearchControl: React.FC = () => {
 const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
   const defaultPosition: [number, number] = [4.60971, -74.08175]; // Ejemplo: Bogotá, Colombia. Ajusta según tus necesidades.
 
-  const obtenerUltimoValorPrecipitacion = (
-    precipitaciones: Precipitacion[] | null
-  ): { dia: string; valor: number | null } | null => {
-    // Proporciona un arreglo vacío como valor predeterminado si precipitaciones es null/undefined
-    const precipitacionesSeguras = precipitaciones || [];
-    if (precipitacionesSeguras.length === 0) return null;
-    const ultimaPrecipitacion =
-      precipitacionesSeguras[precipitacionesSeguras.length - 1];
-    const dia = Object.keys(ultimaPrecipitacion)[0];
-    const valor =
-      ultimaPrecipitacion[dia] !== undefined ? ultimaPrecipitacion[dia] : null;
-    return { dia, valor };
-  };
-
   return (
     <MapContainer
       center={defaultPosition}
@@ -101,7 +88,7 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
             user.t_max
           );
 
-          let fillColor = "#1779ba"; // Azul por defecto para valores de 0 a 25
+          let fillColor = "#F3FF40"; // Azul por defecto para valores de 0 a 25
 
           if (ultimaPrecipitacion === null) {
             fillColor = "#808080"; // Gris si no hay datos de precipitación
@@ -116,12 +103,12 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
               const superaMaxHist =
                 user.MAX_HIST === null || valor > user.MAX_HIST;
 
-              if (valor > 50 && !superaMaxHist) {
+              if (valor > 40 && !superaMaxHist) {
                 fillColor = "#ff0000"; // Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
-              } else if (valor > 25) {
-                fillColor = "#008000"; // Verde si es de 25 a 50
-              } else if (valor <= 25) {
-                fillColor = "#1779ba"; // Azul por defecto para valores de 0 a 25
+              } else if (valor > 20 && valor <= 40) {
+                fillColor = "#59B6F3"; // Verde si es de 25 a 50
+              } else if (valor <= 20 && valor > 0) {
+                fillColor = "#F3FF40"; // Azul por defecto para valores de 0 a 25
               }
 
               // Aplica color morado si el valor supera MAX_HIST y MAX_HIST no es nulo
@@ -138,7 +125,7 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
               key={index}
               center={[user.LAT, user.LON]}
               radius={10}
-              fillOpacity={0.5}
+              fillOpacity={0.7}
               fillColor={fillColor}
               color={fillColor}
               eventHandlers={{
