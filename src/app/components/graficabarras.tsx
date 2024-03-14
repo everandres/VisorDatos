@@ -1,6 +1,7 @@
 import { User } from "../(model)/conexion";
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import {
   Chart as ChartJS,
@@ -18,7 +19,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 import { ChartOptions } from "chart.js";
 
@@ -67,12 +69,6 @@ const GraficaPrecipitacion: React.FC<GraficaPrecipitacionProps> = ({
   const opciones: ChartOptions<"bar"> = {
     responsive: true,
     maintainAspectRatio: false,
-    animations: {
-      y: {
-        easing: "easeInOutElastic",
-        from: 0,
-      },
-    },
     plugins: {
       legend: {
         position: "top",
@@ -90,9 +86,17 @@ const GraficaPrecipitacion: React.FC<GraficaPrecipitacionProps> = ({
           size: 24,
         },
       },
+      // Definir un plugin personalizado para mostrar las etiquetas de valor
+      datalabels: {
+        color: "#000",
+        align: "end",
+        anchor: "end",
+        display: true,
+      },
     },
     scales: {
       y: {
+        beginAtZero: true,
         grid: {
           display: false,
         },
@@ -126,26 +130,28 @@ const GraficaPrecipitacion: React.FC<GraficaPrecipitacionProps> = ({
     datasets: [
       {
         label: "Precipitación total acumulada (mm)",
-        data: datos.map((d) => d.suma),
+        // Ajustar la suma a 1 decimal
+        data: datos.map((d) => Number(d.suma.toFixed(1))),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
         hoverOffset: 4,
         hoverBackgroundColor: "#3678A4",
       },
       {
         label: "Número de estaciones que reportaron datos",
-        data: datos.map((d) => d.estaciones),
-        backgroundColor: "#6AE1AE", // Un color diferente para diferenciar
+        // Ajustar el conteo a 0 decimales (aunque en la práctica, el conteo ya debería ser un entero)
+        data: datos.map((d) => Number(d.estaciones.toFixed(0))),
+        backgroundColor: "#6AE1AE",
         hoverOffset: 4,
         hoverBackgroundColor: "#70F570",
       },
     ],
   };
 
-  // Resto del componente sin cambios...
   return (
     <div className="w-[90%] h-[40vh] mt-10 mx-auto flex justify-bottom items-center">
       <Bar options={opciones} data={data} />
     </div>
   );
 };
+
 export default GraficaPrecipitacion;

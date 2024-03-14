@@ -12,10 +12,18 @@ const ComponenteConTemperaturas: React.FC = () => {
 
   return (
     <div>
+      <h1 className="text-1xl font-bold flex justify-center text-gray-500 mt-2">
+        Información de Temperaturas Máximas y Minínimas Nacionales
+      </h1>
       <ComponenteConFecha />
-      <div className="flex flex-col justify-between space-y-20 mt-8 mb-10 mr-3">
-        <TablaTemperaturasMinimas users={users} />
-        <TablaTemperaturasMaximas users={users} />
+      <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+      <div className="flex  justify-between gap-20 mt-8 mb-10 mr-3">
+        <div className="w-4/5 mx-auto">
+          <TablaTemperaturasMinimas users={users} />
+        </div>
+        <div className="w-4/5 mx-auto">
+          <TablaTemperaturasMaximas users={users} />
+        </div>
       </div>
     </div>
   );

@@ -38,9 +38,9 @@ const EstacionesSuperanMaxHist: React.FC<EstacionesSuperanMaxHistProps> = ({
           del mes.
         </p>
       ) : (
-        <p>
+        <p className="text-gray-500 dark:text-gray-400">
           No se encontraron estaciones que hayan superado su máximo histórico de
-          precipitación.
+          precipitación en lo transcurrido del mes.
         </p>
       )}
     </div>

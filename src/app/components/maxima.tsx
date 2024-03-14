@@ -66,7 +66,10 @@ const EstacionMaximaPrecipitacion: React.FC<
             el día <strong>{diaMaximaPrecipitacion}</strong> del presente mes.
           </p>
         ) : (
-          <p>No se encontraron datos de precipitación.</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            No se encontraron datos de precipitación que superarán el registro
+            histórico el día de hoy.
+          </p>
         )}
       </div>
     </>

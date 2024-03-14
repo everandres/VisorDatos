@@ -66,8 +66,8 @@ const TablaTemperaturasMinimas: React.FC<TablaTemperaturasMinimasProps> = ({
           onChange={(e) => setValorFiltro(Number(e.target.value))}
         />
       </label>
-      <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-        <table className="text-sm text-left text-gray-500 dark:text-gray-400">
+      <div className="overflow-x-auto relative shadow-md sm:rounded-lg max-w-4xl min-w-xs mx-auto">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <caption className="caption-top mt-2 text-slate-800 font-semibold">
             Datos preliminares de temperatura mínima del último día
           </caption>
