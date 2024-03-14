@@ -18,7 +18,12 @@ const ComponenteConTemperaturas: React.FC = () => {
         Información de Temperaturas Máximas y Minínimas Nacionales
       </h1>
       <ComponenteConFecha />
-
+      <br />
+      <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+      <h4 className="text-1xl font-semibold flex justify-center text-gray-400 mt-2">
+        Filtro de informacion de Temperaturas Máximas y Minínimas
+      </h4>
+      <br />
       <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
       <div className="flex  justify-between gap-20 mt-8 mb-10 mr-3">
         <div className="w-4/5 mx-auto">
@@ -28,6 +33,12 @@ const ComponenteConTemperaturas: React.FC = () => {
           <TablaTemperaturasMaximas users={users} />
         </div>
       </div>
+      <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+      <h4 className="text-1xl font-semibold flex justify-center text-gray-400 mt-2">
+        Información de Temperaturas Máximas y Minínimas Nacionales que superan
+        el registro histórico
+      </h4>
+      <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
       <div className="flex  justify-between gap-20 mt-8 mb-10 mr-3 ml-20">
         <div className="w-4/5 mx-auto">
           <EstacionesSuperanMaxTemp users={users} />

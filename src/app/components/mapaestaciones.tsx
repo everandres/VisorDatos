@@ -104,7 +104,7 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 user.MAX_HIST === null || valor > user.MAX_HIST;
 
               if (valor > 40 && !superaMaxHist) {
-                fillColor = "blue"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
+                fillColor = "#0204A7"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
               } else if (valor > 20 && valor <= 40) {
                 fillColor = "#146AA2"; // Verde si es de 25 a 50
               } else if (valor <= 20 && valor > 0) {

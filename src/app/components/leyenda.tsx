@@ -26,7 +26,10 @@ const LeyendaPrecipitacion: React.FC = () => {
       <ItemLeyenda color="#59B6F3" texto="de 0.1 a 20.0 mm" />
       <ItemLeyenda color="#146AA2" texto="> 20 mm y <50 mm" />
       <ItemLeyenda color="#0204A7" texto="> 50 mm" />
-      <ItemLeyenda color="#800080" texto="Superó el registro histórico" />
+      <ItemLeyenda
+        color="#800080"
+        texto="Superó el registro histórico de precipitación"
+      />
     </div>
   );
 };
