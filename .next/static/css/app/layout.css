@@ -669,6 +669,9 @@ video {
 .max-w-sm {
   max-width: 24rem;
 }
+.max-w-4xl {
+  max-width: 56rem;
+}
 .caption-top {
   caption-side: top;
 }

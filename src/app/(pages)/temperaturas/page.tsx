@@ -13,7 +13,7 @@ const ComponenteConTemperaturas: React.FC = () => {
   return (
     <div>
       <ComponenteConFecha />
-      <div className="flex flex-col justify-between space-y-20 mt-8 mb-10 mr-3">
+      <div className="flex flex-col justify-between items-center space-y-20 mt-8 mb-10 mr-3">
         <TablaTemperaturasMinimas users={users} />
         <TablaTemperaturasMaximas users={users} />
       </div>
