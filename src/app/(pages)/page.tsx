@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import BotonBienvenida from "../components/boton";
-import EstacionesMapa from "../components/mapaestaciones";
 import { useUsers } from "../context/usercontext";
 import LeyendaPrecipitacion from "../components/leyenda";
 
+const EstacionesMapa = dynamic(() => import("../components/mapaestaciones"), {
+  ssr: false,
+});
 const ComponentePaginaPrincipal: React.FC = () => {
   const { users } = useUsers();
   return (

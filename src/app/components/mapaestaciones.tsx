@@ -63,6 +63,8 @@ const SearchControl: React.FC = () => {
   return null;
 };
 
+if (typeof window !== "undefined") {
+}
 const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
   const defaultPosition: [number, number] = [4.60971, -74.08175]; // Ejemplo: Bogotá, Colombia. Ajusta según tus necesidades.
 

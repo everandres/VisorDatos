@@ -9,8 +9,17 @@
     "/(pages)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(pages)/page.css",
       "static/chunks/app/(pages)/page.js"
+    ],
+    "/(pages)/estaciones/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(pages)/estaciones/page.js"
+    ],
+    "/(pages)/temperaturas/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(pages)/temperaturas/page.js"
     ]
   }
 }
