@@ -16,6 +16,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(pages)/estaciones/page.js"
+    ],
+    "/(pages)/temperaturas/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(pages)/temperaturas/page.js"
     ]
   }
 }

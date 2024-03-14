@@ -12,6 +12,9 @@ export default function BotonBienvenida() {
       <button className="bg-gray-100 hover:bg-green-100 text-gray-800 font-bold py-2 px-4 rounded-r size-26">
         <Link href="/estaciones">Estaciones</Link>
       </button>
+      <button className="bg-gray-100 hover:bg-green-100 text-gray-800 font-bold py-2 px-4 rounded-r size-26">
+        <Link href="/temperaturas">Temperaturas</Link>
+      </button>
     </div>
   );
 }

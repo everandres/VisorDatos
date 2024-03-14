@@ -26,7 +26,7 @@ const ComponenteConGrafica: React.FC = () => {
         <EstacionesSuperanMaxHist users={users} />
       </div>
       <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-      <div className="flex justify-between">
+      <div className="flex justify-between align-items: center">
         <TablaPrecipitaciones users={users} />
         <EstacionesSuperanMaxPrec users={users} />
       </div>
