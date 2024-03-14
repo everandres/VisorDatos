@@ -38,7 +38,16 @@ const EstacionesSuperanMaxPrec: React.FC<EstacionesSuperanMaxProps> = ({
     });
 
   if (estacionesQueSuperan.length === 0) {
-    return <p>El día de hoy no se superaron registros históricos.</p>;
+    return (
+      <div
+        className="flex items-center md:mr-20 md:mt-40  max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl p-2 md:p-4 bg-white border border-blue-800 dark:border-blue-700 rounded-lg shadow dark:bg-yellow-300"
+        style={{ maxHeight: "100px" }}
+      >
+        <p className="text-gray-500 dark:text-gray-400">
+          El día de hoy no se superaron registros históricos.
+        </p>
+      </div>
+    );
   }
 
   return (

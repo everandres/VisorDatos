@@ -27,7 +27,7 @@ const ComponenteConGrafica: React.FC = () => {
       </div>
       <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
       <div className="flex justify-center align-items: center">
-        <div className="w-4/5 mx-auto ml-1">
+        <div className="w-4/5">
           <TablaPrecipitaciones users={users} />
         </div>
         <EstacionesSuperanMaxPrec users={users} />
