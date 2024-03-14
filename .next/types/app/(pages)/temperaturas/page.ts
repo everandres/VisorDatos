@@ -1,4 +1,4 @@
-// File: C:\Users\Ever Salazar\Desktop\VisorDatos\src\app\(pages)\temperaturas\page.tsx
+// File: C:\Users\easalazarm\Desktop\VisorDatos\src\app\(pages)\temperaturas\page.tsx
 import * as entry from '../../../../../src/app/(pages)/temperaturas/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
