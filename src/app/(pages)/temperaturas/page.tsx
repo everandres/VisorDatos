@@ -6,6 +6,8 @@ import React from "react";
 import ComponenteConFecha from "@/app/components/fecha";
 import TablaTemperaturasMinimas from "@/app/components/tablatemperaturaminima";
 import TablaTemperaturasMaximas from "@/app/components/tablatemperaturamaxima";
+import EstacionesSuperanMaxTemp from "@/app/components/temperaturamaximahistorica";
+import EstacionesSuperanMinTemp from "@/app/components/temperaturaminimahistorica";
 
 const ComponenteConTemperaturas: React.FC = () => {
   const { users } = useUsers();
@@ -16,6 +18,7 @@ const ComponenteConTemperaturas: React.FC = () => {
         Información de Temperaturas Máximas y Minínimas Nacionales
       </h1>
       <ComponenteConFecha />
+
       <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
       <div className="flex  justify-between gap-20 mt-8 mb-10 mr-3">
         <div className="w-4/5 mx-auto">
@@ -23,6 +26,14 @@ const ComponenteConTemperaturas: React.FC = () => {
         </div>
         <div className="w-4/5 mx-auto">
           <TablaTemperaturasMaximas users={users} />
+        </div>
+      </div>
+      <div className="flex  justify-between gap-20 mt-8 mb-10 mr-3 ml-20">
+        <div className="w-4/5 mx-auto">
+          <EstacionesSuperanMaxTemp users={users} />
+        </div>
+        <div className="w-4/5 mx-auto">
+          <EstacionesSuperanMinTemp users={users} />
         </div>
       </div>
     </div>
