@@ -55,11 +55,11 @@ const TablaTemperaturasMaximas: React.FC<TablaTemperaturasMaximasProps> = ({
     <div>
       <label
         htmlFor="filtroTemperaturaMaxima"
-        className="block ml-6 mb-2 text-sm text-gray-900 dark:text-gray-300 font-bold bg-orange-300 w-fit"
+        className="block ml-3 mb-2 text-sm dark:text-gray-300 font-bold bg-orange-400 w-fit text-white"
       >
-        Valor de temperatura máxima para filtrar (°C):
+        Filtro temperatura máxima superiores a (°C):
         <input
-          className="ml-2 p-1 w-24 text-sm border-2 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          className="ml-2 p-1 w-24 text-sm border-2 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-black"
           type="number"
           id="filtroTemperaturaMaxima"
           value={valorFiltro}

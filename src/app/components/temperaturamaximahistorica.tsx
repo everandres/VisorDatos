@@ -54,7 +54,7 @@ const EstacionesSuperanMaxTemp: React.FC<EstacionesSuperanMaxTempProps> = ({
   return (
     <div>
       <table className="text-sm text-left text-gray-500 dark:text-gray-400 mt-20 mr-3">
-        <caption className="caption-top mt-2 text-slate-800 font-semibold">
+        <caption className="caption-top mt-2  font-semibold bg-orange-500 text-white">
           Valores de temperatura máxima que superaron el máximo histórico el día
           de hoy
         </caption>

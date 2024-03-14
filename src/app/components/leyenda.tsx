@@ -22,10 +22,10 @@ const LeyendaPrecipitacion: React.FC = () => {
   return (
     <div className="flex flex-col ml-2 md:ml-5 mb-2 md:mb-8 bg-slate-100 bg-opacity-40 p-2 md:p-5 rounded-lg">
       <ItemLeyenda color="#808080" texto="Sin información de precipitación" />
-      <ItemLeyenda color="#F55B5B" texto="0.0 mm" />
-      <ItemLeyenda color="#59B6F3" texto="de 0.1 a 20.0 mm" />
-      <ItemLeyenda color="#146AA2" texto="> 20 mm y <50 mm" />
-      <ItemLeyenda color="#0204A7" texto="> 50 mm" />
+      <ItemLeyenda color="#FFFF13" texto="0.0 mm" />
+      <ItemLeyenda color="#FFFFFF" texto="> 0.1 mm y <= 20.0 mm" />
+      <ItemLeyenda color="#146AA2" texto="> 20 mm y <= 40 mm" />
+      <ItemLeyenda color="#F55B5B" texto="> 40 mm" />
       <ItemLeyenda
         color="#800080"
         texto="Superó el registro histórico de precipitación"
@@ -33,5 +33,5 @@ const LeyendaPrecipitacion: React.FC = () => {
     </div>
   );
 };
-
+// #F55B5B #0204A7
 export default LeyendaPrecipitacion;

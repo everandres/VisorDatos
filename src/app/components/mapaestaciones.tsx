@@ -104,13 +104,13 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 user.MAX_HIST === null || valor > user.MAX_HIST;
 
               if (valor > 40 && !superaMaxHist) {
-                fillColor = "#0204A7"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
+                fillColor = "#F55B5B"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
               } else if (valor > 20 && valor <= 40) {
                 fillColor = "#146AA2"; // Verde si es de 25 a 50
               } else if (valor <= 20 && valor > 0) {
-                fillColor = "#59B6F3"; // Azul por defecto para valores de 0 a 25
+                fillColor = "#FFFFFF"; // Azul por defecto para valores de 0 a 25
               } else {
-                fillColor = "#F55B5B"; // Gris si el valor es 0
+                fillColor = "#FFFF13"; // Gris si el valor es 0
               }
 
               // Aplica color morado si el valor supera MAX_HIST y MAX_HIST no es nulo
@@ -129,7 +129,7 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
               radius={6}
               fillOpacity={0.9}
               fillColor={fillColor}
-              color={fillColor}
+              color="black"
               eventHandlers={{
                 mouseover: (e) => {
                   const marker = e.target;
