@@ -107,9 +107,9 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 user.MAX_HIST === null || valor > user.MAX_HIST;
 
               if (valor > 40 && !superaMaxHist) {
-                fillColor = "#F55B5B"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
+                fillColor = "#FF0000"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
               } else if (valor > 20 && valor <= 40) {
-                fillColor = "#146AA2"; // Verde si es de 25 a 50
+                fillColor = "#0000FF"; // Verde si es de 25 a 50
               } else if (valor <= 20 && valor > 0) {
                 fillColor = "#FFFFFF"; // Azul por defecto para valores de 0 a 25
               } else {
@@ -133,6 +133,7 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
               fillOpacity={0.9}
               fillColor={fillColor}
               color="black"
+              weight={1.5}
               eventHandlers={{
                 mouseover: (e) => {
                   const marker = e.target;
@@ -163,33 +164,33 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 {user.MUNICIPIO}
                 <br />
                 <strong className="text-gray-300">ELEVACION: </strong>
-                {user.ELEV ?? "Sin información"} m<br />
+                {user.ELEV ?? "Sin dato"} m<br />
                 <strong className="text-orange-200">
                   PRECIPITACIÓN MÁXIMA HISTÓRICA:
                 </strong>{" "}
-                {user.MAX_HIST ?? "Sin información"} mm
+                {user.MAX_HIST ?? "Sin dato"} mm
                 <br />
                 <strong className="text-orange-200">
                   TEMPERATURA MÍNIMA HISTÓRICA:
                 </strong>{" "}
-                {user.T_MIN_HIST ?? "Sin información"} °C
+                {user.T_MIN_HIST ?? "Sin dato"} °C
                 <br />
                 <strong className="text-orange-200">
                   TEMPERATURA MAXIMA HISTÓRICA:
                 </strong>{" "}
-                {user.T_MAX_HIST ?? "Sin información"} °C
+                {user.T_MAX_HIST ?? "Sin dato"} °C
                 <br />
                 <strong>DIA DEL MES:</strong>{" "}
-                {ultimaPrecipitacion?.dia ?? "Sin información"}
+                {ultimaPrecipitacion?.dia ?? "Sin dato"}
                 <br />
                 <strong className="text-green-200">PRECIPITACIÓN: </strong>
-                {ultimaPrecipitacion?.valor ?? "Sin información"} mm
+                {ultimaPrecipitacion?.valor ?? "Sin dato"} mm
                 <br />
                 <strong className="text-green-200">TEMPERATURA MÍNIMA: </strong>
-                {ultimaTemperaturaMinima?.valor ?? "Sin información"} °C
+                {ultimaTemperaturaMinima?.valor ?? "Sin dato"} °C
                 <br />
                 <strong className="text-green-200">TEMPERATURA MÁXIMA: </strong>
-                {ultimaTemperaturaMaxima?.valor ?? "Sin información"} °C
+                {ultimaTemperaturaMaxima?.valor ?? "Sin dato"} °C
               </Tooltip>
             </CircleMarker>
           );
