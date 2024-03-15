@@ -1,5 +1,5 @@
 {
   "/(pages)/page": "app/(pages)/page.js",
-  "/(pages)/temperaturas/page": "app/(pages)/temperaturas/page.js",
-  "/(pages)/estaciones/page": "app/(pages)/estaciones/page.js"
+  "/(pages)/estaciones/page": "app/(pages)/estaciones/page.js",
+  "/(pages)/temperaturas/page": "app/(pages)/temperaturas/page.js"
 }
