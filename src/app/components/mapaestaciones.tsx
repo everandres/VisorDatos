@@ -47,7 +47,7 @@ const SearchControl: React.FC = () => {
       style: "button",
       animateZoom: true,
       autoComplete: true,
-      autoCompleteDelay: 100,
+      autoCompleteDelay: 50,
       showMarker: false,
       autoClose: true,
     });
@@ -80,126 +80,120 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
       />
       <SearchControl />
       <MarkerClusterGroup maxClusterRadius={25}>
-        {Array.isArray(users) &&
-          users.map((user: UserAdjusted, index: number) => {
-            const ultimaPrecipitacion = obtenerUltimoValorPrecipitacion(
-              user.precipitacion
-            );
-            const ultimaTemperaturaMinima = obtenerUltimoValorPrecipitacion(
-              user.t_min
-            );
-            const ultimaTemperaturaMaxima = obtenerUltimoValorPrecipitacion(
-              user.t_max
-            );
+        {users.map((user: UserAdjusted, index: number) => {
+          const ultimaPrecipitacion = obtenerUltimoValorPrecipitacion(
+            user.precipitacion
+          );
+          const ultimaTemperaturaMinima = obtenerUltimoValorPrecipitacion(
+            user.t_min
+          );
+          const ultimaTemperaturaMaxima = obtenerUltimoValorPrecipitacion(
+            user.t_max
+          );
 
-            let fillColor = "#F3FF40"; // Azul por defecto para valores de 0 a 25
+          let fillColor = "#F3FF40"; // Corregido para reflejar el color inicial correcto según el uso pretendido en el código
 
-            if (ultimaPrecipitacion === null) {
-              fillColor = "#808080"; // Gris si no hay datos de precipitación
-            } else {
-              // Verifica que 'valor' no sea 'undefined' antes de comparar
-              const valor =
-                ultimaPrecipitacion.valor !== undefined
-                  ? ultimaPrecipitacion.valor
-                  : null;
-              // Determina el color basado en el rango de valor, considerando también si MAX_HIST es nulo
-              if (valor !== null) {
-                const superaMaxHist =
-                  user.MAX_HIST === null || valor > user.MAX_HIST;
+          if (ultimaPrecipitacion === null) {
+            fillColor = "#808080"; // Gris si no hay datos de precipitación
+          } else {
+            const valor =
+              ultimaPrecipitacion.valor !== undefined
+                ? ultimaPrecipitacion.valor
+                : null;
 
-                if (valor > 40 && !superaMaxHist) {
-                  fillColor = "#FF0000"; // #ff0000 Rojo si es mayor a 50 y no supera MAX_HIST o si MAX_HIST es nulo
-                } else if (valor > 20 && valor <= 40) {
-                  fillColor = "#0000FF"; // Verde si es de 25 a 50
-                } else if (valor <= 20 && valor > 0) {
-                  fillColor = "#FFFFFF"; // Azul por defecto para valores de 0 a 25
-                } else {
-                  fillColor = "#FFFF13"; // Gris si el valor es 0
-                }
+            if (valor !== null) {
+              const superaMaxHist =
+                user.MAX_HIST === null || valor > user.MAX_HIST;
 
-                // Aplica color morado si el valor supera MAX_HIST y MAX_HIST no es nulo
-                if (superaMaxHist && user.MAX_HIST !== null) {
-                  fillColor = "#800080"; // Morado si supera el MAX_HIST y MAX_HIST no es nulo
-                }
-              } else {
-                fillColor = "#808080"; // Gris si el último valor es nulo
+              if (valor > 40) {
+                fillColor = "#FF0000"; // Rojo para valores mayores a 40, pendiente de revisión contra MAX_HIST
+              } else if (valor > 20 && valor <= 40) {
+                fillColor = "#0000FF"; // Azul para valores de 21 a 40
+              } else if (valor > 0 && valor <= 20) {
+                fillColor = "#FFFFFF"; // Blanco para valores de 1 a 20
+              } else if (valor === 0) {
+                fillColor = "#F3FF40"; // Verde para valor 0
               }
-            }
 
-            return (
-              <CircleMarker
-                key={index}
-                center={[user.LAT, user.LON]}
-                radius={6}
-                fillOpacity={0.9}
-                fillColor={fillColor}
-                color="black"
-                weight={1.5}
-                eventHandlers={{
-                  mouseover: (e) => {
-                    const marker = e.target;
-                    marker.setRadius(20); // Aumenta el radio del marcador
-                  },
-                  mouseout: (e) => {
-                    const marker = e.target;
-                    marker.setRadius(6); // Restablece el tamaño original del marcador
-                  },
-                }}
+              // Verificación mantenida para aplicar color morado si supera MAX_HIST y MAX_HIST no es nulo
+              if (superaMaxHist && user.MAX_HIST !== null) {
+                fillColor = "#800080"; // Morado para valores que superan MAX_HIST, con MAX_HIST no nulo
+              }
+            } else {
+              fillColor = "#808080"; // Gris si el valor es nulo
+            }
+          }
+
+          return (
+            <CircleMarker
+              key={index}
+              center={[user.LAT, user.LON]}
+              radius={6}
+              fillOpacity={0.9}
+              fillColor={fillColor}
+              color="black"
+              weight={1.5}
+              eventHandlers={{
+                mouseover: (e) => {
+                  const marker = e.target;
+                  marker.setRadius(20); // Aumenta el radio del marcador
+                },
+                mouseout: (e) => {
+                  const marker = e.target;
+                  marker.setRadius(6); // Restablece el tamaño original del marcador
+                },
+              }}
+            >
+              <Tooltip
+                className="tooltipCustom"
+                direction="top"
+                offset={[0, -10]}
+                opacity={1}
               >
-                <Tooltip
-                  className="tooltipCustom"
-                  direction="top"
-                  offset={[0, -10]}
-                  opacity={1}
-                >
-                  <strong className="text-gray-300">CÓDIGO: </strong>
-                  {user.CODIGO}
-                  <br />
-                  <strong className="text-gray-300">ESTACIÓN: </strong>
-                  {user.ESTACION}
-                  <br />
-                  <strong className="text-gray-300">DEPARTAMENTO:</strong>{" "}
-                  {user.DPTO}
-                  <br />
-                  <strong className="text-gray-300">MUNICIPIO:</strong>{" "}
-                  {user.MUNICIPIO}
-                  <br />
-                  <strong className="text-gray-300">ELEVACION: </strong>
-                  {user.ELEV ?? "Sin dato"} m<br />
-                  <strong className="text-orange-200">
-                    PRECIPITACIÓN MÁXIMA HISTÓRICA:
-                  </strong>{" "}
-                  {user.MAX_HIST ?? "Sin dato"} mm
-                  <br />
-                  <strong className="text-orange-200">
-                    TEMPERATURA MÍNIMA HISTÓRICA:
-                  </strong>{" "}
-                  {user.T_MIN_HIST ?? "Sin dato"} °C
-                  <br />
-                  <strong className="text-orange-200">
-                    TEMPERATURA MAXIMA HISTÓRICA:
-                  </strong>{" "}
-                  {user.T_MAX_HIST ?? "Sin dato"} °C
-                  <br />
-                  <strong>DIA DEL MES:</strong>{" "}
-                  {ultimaPrecipitacion?.dia ?? "Sin dato"}
-                  <br />
-                  <strong className="text-green-200">PRECIPITACIÓN: </strong>
-                  {ultimaPrecipitacion?.valor ?? "Sin dato"} mm
-                  <br />
-                  <strong className="text-green-200">
-                    TEMPERATURA MÍNIMA:{" "}
-                  </strong>
-                  {ultimaTemperaturaMinima?.valor ?? "Sin dato"} °C
-                  <br />
-                  <strong className="text-green-200">
-                    TEMPERATURA MÁXIMA:{" "}
-                  </strong>
-                  {ultimaTemperaturaMaxima?.valor ?? "Sin dato"} °C
-                </Tooltip>
-              </CircleMarker>
-            );
-          })}
+                <strong className="text-gray-300">CÓDIGO: </strong>
+                {user.CODIGO}
+                <br />
+                <strong className="text-gray-300">ESTACIÓN: </strong>
+                {user.ESTACION}
+                <br />
+                <strong className="text-gray-300">DEPARTAMENTO:</strong>{" "}
+                {user.DPTO}
+                <br />
+                <strong className="text-gray-300">MUNICIPIO:</strong>{" "}
+                {user.MUNICIPIO}
+                <br />
+                <strong className="text-gray-300">ELEVACION: </strong>
+                {user.ELEV ?? "Sin dato"} m<br />
+                <strong className="text-orange-200">
+                  PRECIPITACIÓN MÁXIMA HISTÓRICA:
+                </strong>{" "}
+                {user.MAX_HIST ?? "Sin dato"} mm
+                <br />
+                <strong className="text-orange-200">
+                  TEMPERATURA MÍNIMA HISTÓRICA:
+                </strong>{" "}
+                {user.T_MIN_HIST ?? "Sin dato"} °C
+                <br />
+                <strong className="text-orange-200">
+                  TEMPERATURA MAXIMA HISTÓRICA:
+                </strong>{" "}
+                {user.T_MAX_HIST ?? "Sin dato"} °C
+                <br />
+                <strong>DIA DEL MES:</strong>{" "}
+                {ultimaPrecipitacion?.dia ?? "Sin dato"}
+                <br />
+                <strong className="text-green-200">PRECIPITACIÓN: </strong>
+                {ultimaPrecipitacion?.valor ?? "Sin dato"} mm
+                <br />
+                <strong className="text-green-200">TEMPERATURA MÍNIMA: </strong>
+                {ultimaTemperaturaMinima?.valor ?? "Sin dato"} °C
+                <br />
+                <strong className="text-green-200">TEMPERATURA MÁXIMA: </strong>
+                {ultimaTemperaturaMaxima?.valor ?? "Sin dato"} °C
+              </Tooltip>
+            </CircleMarker>
+          );
+        })}
       </MarkerClusterGroup>
     </MapContainer>
   );
