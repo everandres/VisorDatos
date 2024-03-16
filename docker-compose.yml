@@ -3,4 +3,4 @@ services:
   tu-aplicacion-nextjs:
     build: .
     ports:
-      - "6000:3000"
+      - "4200:3000"
