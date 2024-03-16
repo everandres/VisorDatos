@@ -12,6 +12,8 @@ import clientPromise from "@/app/(model)/mongodb";
 import { Db } from "mongodb";
 import { User } from "@/app/(model)/conexion";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   try {
     const client = await clientPromise;
