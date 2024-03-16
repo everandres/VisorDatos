@@ -3,7 +3,7 @@ config(); // Esto carga las variables de entorno desde '.env'
 
 import { MongoClient } from "mongodb";
 
-const uri: string = process.env.MONGODB_URI || "tu_uri_de_conexion_a_mongodb";
+const uri: string = process.env.MONGODB_URI || "mongodb+srv://everandres:MmQHUK199Hz3sKRg@ospa.jtty6om.mongodb.net";
 if (!uri) {
   throw new Error(
     "Please define the MONGODB_URI environment variable inside .env"
