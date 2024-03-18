@@ -163,33 +163,56 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 {user.MUNICIPIO}
                 <br />
                 <strong className="text-gray-300">ELEVACION: </strong>
-                {user.ELEV ?? "Sin dato"} m<br />
+                {user.ELEV ?? "Sin dato"} m.s.n.m
+                <br />
                 <strong className="text-orange-200">
                   PRECIPITACIÓN MÁXIMA HISTÓRICA:
                 </strong>{" "}
-                {user.MAX_HIST ?? "Sin dato"} mm
+                {user.MAX_HIST !== null && user.MAX_HIST !== undefined
+                  ? user.MAX_HIST.toFixed(1)
+                  : "Sin dato"}{" "}
+                mm
                 <br />
                 <strong className="text-orange-200">
                   TEMPERATURA MÍNIMA HISTÓRICA:
                 </strong>{" "}
-                {user.T_MIN_HIST ?? "Sin dato"} °C
+                {user.T_MIN_HIST !== null && user.T_MIN_HIST !== undefined
+                  ? user.T_MIN_HIST.toFixed(1)
+                  : "Sin dato"}{" "}
+                °C
                 <br />
                 <strong className="text-orange-200">
                   TEMPERATURA MAXIMA HISTÓRICA:
                 </strong>{" "}
-                {user.T_MAX_HIST ?? "Sin dato"} °C
+                {user.T_MAX_HIST !== null && user.T_MAX_HIST !== undefined
+                  ? user.T_MAX_HIST.toFixed(1)
+                  : "Sin dato"}{" "}
+                °C
                 <br />
-                <strong>DIA DEL MES:</strong>{" "}
+                <strong className="text-cyan-900">DIA DEL MES:</strong>{" "}
                 {ultimaPrecipitacion?.dia ?? "Sin dato"}
                 <br />
                 <strong className="text-green-200">PRECIPITACIÓN: </strong>
-                {ultimaPrecipitacion?.valor ?? "Sin dato"} mm
+                {ultimaPrecipitacion?.valor !== null &&
+                ultimaPrecipitacion?.valor !== undefined
+                  ? ultimaPrecipitacion?.valor.toFixed(1)
+                  : "Sin dato"}{" "}
+                mm
                 <br />
                 <strong className="text-green-200">TEMPERATURA MÍNIMA: </strong>
-                {ultimaTemperaturaMinima?.valor ?? "Sin dato"} °C
+                {ultimaTemperaturaMinima?.valor !== null &&
+                ultimaTemperaturaMinima?.valor !== undefined
+                  ? ultimaTemperaturaMinima?.valor.toFixed(1)
+                  : "Sin dato"}{" "}
+                °C
                 <br />
                 <strong className="text-green-200">TEMPERATURA MÁXIMA: </strong>
-                {ultimaTemperaturaMaxima?.valor ?? "Sin dato"} °C
+                {ultimaTemperaturaMaxima?.valor !== null &&
+                ultimaTemperaturaMaxima?.valor !== undefined
+                  ? ultimaTemperaturaMaxima?.valor.toFixed(1)
+                  : "Sin dato"}{" "}
+                °C
+                <br />
               </Tooltip>
             </CircleMarker>
           );
