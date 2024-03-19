@@ -24,7 +24,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   // Cargar datos (este es un ejemplo, ajusta según tu fuente de datos)
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch("/api/precipitacion"); // Asume que tienes una API en /api/users
+      const response = await fetch("/api/precipitacion"); // Ajusta la ruta de tu endpoint
       const data = await response.json();
       setUsers(data);
     };

@@ -15,6 +15,7 @@ import "../css/styles.css";
 import { User } from "../(model)/conexion";
 import MarkerClusterGroup from "react-leaflet-cluster"; // Asegúrate de tener la importación correcta
 import obtenerUltimoValorPrecipitacion from "../funciones/ultimodia";
+import { useRouter } from "next/navigation";
 
 interface EstacionesMapaProps {
   users: User[];
@@ -68,6 +69,7 @@ if (typeof window !== "undefined") {
 const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
   const defaultPosition: [number, number] = [4.60971, -74.08175]; // Ejemplo: Bogotá, Colombia. Ajusta según tus necesidades.
 
+  const router = useRouter();
   return (
     <MapContainer
       center={defaultPosition}
@@ -141,6 +143,18 @@ const EstacionesMapa: React.FC<EstacionesMapaProps> = ({ users }) => {
                 mouseout: (e) => {
                   const marker = e.target;
                   marker.setRadius(6); // Restablece el tamaño original del marcador
+                },
+                click: (e) => {
+                  // Cambiar el cursor a 'progress' o cualquier otro para indicar acción
+                  e.target._path.style.cursor = "progress";
+
+                  // Usando useRouter para navegar
+                  router.push(`/info/${user.CODIGO}`);
+
+                  // Opcional: revertir el cursor después de un breve retraso
+                  setTimeout(() => {
+                    e.target._path.style.cursor = "";
+                  }, 1000); // Revertir después de 1 segundo
                 },
               }}
             >
