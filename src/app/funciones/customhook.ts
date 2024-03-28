@@ -35,9 +35,7 @@ function useEstacion(id: string) {
     const fetchEstacion = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/precipitacion/${id}`
-        );
+        const response = await fetch(`/api/precipitacion/${id}`);
         const jsonData = await response.json();
         setData(jsonData);
         setError(null);

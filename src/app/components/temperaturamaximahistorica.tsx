@@ -25,14 +25,17 @@ const EstacionesSuperanMaxTemp: React.FC<EstacionesSuperanMaxTempProps> = ({
       const ultimoValorTemperaturaMax = obtenerUltimoValorPrecipitacion(
         user.t_max
       );
-      const diferencia =
-        (ultimoValorTemperaturaMax?.valor ?? 0) - user.T_MAX_HIST;
+      // Asegurando valores por defecto antes de las operaciones
+      const ultimoValor = ultimoValorTemperaturaMax?.valor ?? 0;
+      const maxHist = user.T_MAX_HIST ?? 0;
+      const diferencia = ultimoValor - maxHist;
       return {
         DEPARTAMENTO: user.DPTO,
         MUNICIPIO: user.MUNICIPIO,
         ESTACION: user.ESTACION,
-        ULTIMO_VALOR: ultimoValorTemperaturaMax?.valor ?? "N/A", // Asumiendo que no será nulo por el filtro previo
-        T_MAX_HIST: user.T_MAX_HIST,
+        // Formateando los valores para mostrar un decimal
+        ULTIMO_VALOR: ultimoValor.toFixed(1),
+        T_MAX_HIST: maxHist.toFixed(1),
         DIFERENCIA: diferencia.toFixed(1),
       };
     });

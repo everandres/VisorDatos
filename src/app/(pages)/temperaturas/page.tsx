@@ -41,10 +41,10 @@ const ComponenteConTemperaturas: React.FC = () => {
       <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
       <div className="flex  justify-between gap-20 mt-8 mb-10 mr-3 ml-20">
         <div className="w-4/5 mx-auto">
-          <EstacionesSuperanMaxTemp users={users} />
+          <EstacionesSuperanMinTemp users={users} />
         </div>
         <div className="w-4/5 mx-auto">
-          <EstacionesSuperanMinTemp users={users} />
+          <EstacionesSuperanMaxTemp users={users} />
         </div>
       </div>
     </div>

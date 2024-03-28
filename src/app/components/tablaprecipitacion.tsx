@@ -9,7 +9,6 @@ interface TablaPrecipitacionesProps {
 const TablaPrecipitaciones: React.FC<TablaPrecipitacionesProps> = ({
   users,
 }) => {
-  // Estado para manejar el valor de filtro ingresado por el usuario
   const [valorFiltro, setValorFiltro] = useState(35);
 
   const filtrarYProcesarDatos = (valor: number) => {
@@ -29,27 +28,33 @@ const TablaPrecipitaciones: React.FC<TablaPrecipitacionesProps> = ({
         if (!acum[DPTO][MUNICIPIO]) {
           acum[DPTO][MUNICIPIO] = [];
         }
-        acum[DPTO][MUNICIPIO].push(ultimaPrecipitacion.valor);
+        // Asegurar formato decimal
+        acum[DPTO][MUNICIPIO].push(ultimaPrecipitacion.valor.toFixed(1));
       }
       return acum;
-    }, {} as Record<string, Record<string, number[]>>);
+    }, {} as Record<string, Record<string, string[]>>);
   };
 
   const datosFiltrados = filtrarYProcesarDatos(valorFiltro);
 
-  const datosParaMostrar = Object.entries(datosFiltrados).map(
-    ([departamento, municipios]) => {
+  // Ordenar alfabéticamente y asegurar formato decimal
+  const datosParaMostrar = Object.entries(datosFiltrados)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([departamento, municipios]) => {
       const municipiosYValores = Object.entries(municipios)
         .map(([municipio, valores]) => {
-          return `${municipio} (${valores.join(", ")})`;
+          // Asegurar que todos los valores estén en formato decimal
+          const valoresConDecimal = valores.map((valor) =>
+            parseFloat(valor).toFixed(1)
+          );
+          return `${municipio} (${valoresConDecimal.join(", ")})`;
         })
         .join(", ");
       return {
         departamento,
         municipiosYValores,
       };
-    }
-  );
+    });
 
   return (
     <div>
@@ -57,7 +62,7 @@ const TablaPrecipitaciones: React.FC<TablaPrecipitacionesProps> = ({
         htmlFor="filtroValor"
         className="block ml-6 mb-2 text-sm  text-gray-900 dark:text-gray-300 font-bold bg-cyan-100 w-fit"
       >
-        Valor de precipitación para filtrar (mm):
+        Filtro precipitaciones superiores a (mm):
         <input
           className="ml-2 p-1 w-24 text-sm border-2 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
           type="number"

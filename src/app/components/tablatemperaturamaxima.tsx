@@ -29,27 +29,31 @@ const TablaTemperaturasMaximas: React.FC<TablaTemperaturasMaximasProps> = ({
         if (!acum[DPTO][MUNICIPIO]) {
           acum[DPTO][MUNICIPIO] = [];
         }
-        acum[DPTO][MUNICIPIO].push(ultimaTemperaturaMaxima.valor);
+        acum[DPTO][MUNICIPIO].push(ultimaTemperaturaMaxima.valor.toFixed(1));
       }
       return acum;
-    }, {} as Record<string, Record<string, number[]>>);
+    }, {} as Record<string, Record<string, string[]>>);
   };
 
   const datosFiltrados = filtrarYProcesarDatos(valorFiltro);
 
-  const datosParaMostrar = Object.entries(datosFiltrados).map(
-    ([departamento, municipios]) => {
+  const datosParaMostrar = Object.entries(datosFiltrados)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([departamento, municipios]) => {
       const municipiosYValores = Object.entries(municipios)
         .map(([municipio, valores]) => {
-          return `${municipio} (${valores.join(", ")})`;
+          // Asegurar que todos los valores estén en formato decimal
+          const valoresConDecimal = valores.map((valor) =>
+            parseFloat(valor).toFixed(1)
+          );
+          return `${municipio} (${valoresConDecimal.join(", ")})`;
         })
         .join(", ");
       return {
         departamento,
         municipiosYValores,
       };
-    }
-  );
+    });
 
   return (
     <div>

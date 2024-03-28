@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../(model)/conexion"; // Ajusta la ruta según la ubicación de tu modelo
+import { User } from "../(model)/conexion";
 import obtenerUltimoValorPrecipitacion from "../funciones/ultimodia";
 
 interface EstacionesSuperanMaxProps {
@@ -18,7 +18,7 @@ const EstacionesSuperanMaxPrec: React.FC<EstacionesSuperanMaxProps> = ({
         ultimoValorPrecipitacion !== null &&
         ultimoValorPrecipitacion.valor !== null &&
         user.MAX_HIST !== null &&
-        user.MAX_HIST !== undefined && // Se añade una comprobación adicional por si acaso
+        user.MAX_HIST !== undefined &&
         ultimoValorPrecipitacion.valor > user.MAX_HIST
       );
     })
@@ -26,21 +26,24 @@ const EstacionesSuperanMaxPrec: React.FC<EstacionesSuperanMaxProps> = ({
       const ultimoValorPrecipitacion = obtenerUltimoValorPrecipitacion(
         user.precipitacion
       );
+      // Proporcionar un valor por defecto antes de realizar operaciones
+      const ultimoValor = ultimoValorPrecipitacion?.valor ?? 0;
+      const maxHist = user.MAX_HIST ?? 0; // Asegurar un valor por defecto para MAX_HIST también
       return {
         DEPARTAMENTO: user.DPTO,
         MUNICIPIO: user.MUNICIPIO,
         ESTACION: user.ESTACION,
-        ULTIMO_VALOR: ultimoValorPrecipitacion?.valor ?? "N/A",
-
-        MAX_HIST: user.MAX_HIST,
-        DIFERENCIA: (ultimoValorPrecipitacion?.valor ?? 0) - user.MAX_HIST,
+        // Asegurar formato decimal y proporcionar un valor por defecto
+        ULTIMO_VALOR: ultimoValor.toFixed(1),
+        MAX_HIST: maxHist.toFixed(1),
+        DIFERENCIA: (ultimoValor - maxHist).toFixed(1),
       };
     });
 
   if (estacionesQueSuperan.length === 0) {
     return (
       <div
-        className="flex items-center md:mr-20 md:mt-40  max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl p-2 md:p-4 bg-white border border-blue-800 dark:border-blue-700 rounded-lg shadow dark:bg-yellow-300"
+        className="flex items-center md:mr-20 md:mt-40 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl p-2 md:p-4 bg-white border border-blue-800 dark:border-blue-700 rounded-lg shadow dark:bg-yellow-300"
         style={{ maxHeight: "100px" }}
       >
         <p className="text-gray-500 dark:text-gray-400">

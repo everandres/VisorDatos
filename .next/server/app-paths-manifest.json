@@ -1,9 +1,5 @@
 {
-  "/(pages)/page": "app/(pages)/page.js",
-  "/(pages)/info/[id]/page": "app/(pages)/info/[id]/page.js",
-  "/(pages)/temperaturas/page": "app/(pages)/temperaturas/page.js",
   "/(pages)/estaciones/page": "app/(pages)/estaciones/page.js",
-  "/api/precipitacion/route": "app/api/precipitacion/route.js",
-  "/api/precipitacion/[id]/route": "app/api/precipitacion/[id]/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/(pages)/page": "app/(pages)/page.js",
+  "/(pages)/temperaturas/page": "app/(pages)/temperaturas/page.js"
 }

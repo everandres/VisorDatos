@@ -18,21 +18,24 @@ const EstacionesSuperanMinTemp: React.FC<EstacionesSuperanMinTempProps> = ({
         ultimoValorTemperaturaMin !== null &&
         ultimoValorTemperaturaMin.valor !== null &&
         user.T_MIN_HIST !== null &&
-        ultimoValorTemperaturaMin.valor < user.T_MIN_HIST // Cambio clave aquí para buscar valores inferiores al histórico
+        ultimoValorTemperaturaMin.valor < user.T_MIN_HIST
       );
     })
     .map((user) => {
       const ultimoValorTemperaturaMin = obtenerUltimoValorPrecipitacion(
         user.t_min
       );
-      const diferencia =
-        user.T_MIN_HIST - (ultimoValorTemperaturaMin?.valor ?? 0); // Invertimos la diferencia para casos de temperatura mínima
+      // Asegurando valores por defecto antes de las operaciones
+      const ultimoValor = ultimoValorTemperaturaMin?.valor ?? 0;
+      const minHist = user.T_MIN_HIST ?? 0; // Aseguramos un valor por defecto para T_MIN_HIST también
+      const diferencia = minHist - ultimoValor; // Ajustamos el cálculo de la diferencia
       return {
         DEPARTAMENTO: user.DPTO,
         MUNICIPIO: user.MUNICIPIO,
         ESTACION: user.ESTACION,
-        ULTIMO_VALOR: ultimoValorTemperaturaMin?.valor ?? "N/A",
-        T_MIN_HIST: user.T_MIN_HIST,
+        // Formateando los valores para mostrar un decimal
+        ULTIMO_VALOR: ultimoValor.toFixed(1),
+        T_MIN_HIST: minHist.toFixed(1),
         DIFERENCIA: diferencia.toFixed(1),
       };
     });
@@ -50,7 +53,6 @@ const EstacionesSuperanMinTemp: React.FC<EstacionesSuperanMinTempProps> = ({
       </div>
     );
   }
-
   return (
     <div>
       <table className="text-sm text-left text-gray-500 dark:text-gray-400 mt-20 mr-3">
